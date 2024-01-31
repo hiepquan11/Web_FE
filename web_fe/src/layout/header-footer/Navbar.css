@@ -1,0 +1,15 @@
+ .navbar{
+  background-color: #d02c28;
+ }
+ .navbar a{
+  color: #ffff;
+ }
+ .navbar a:hover {
+  color: black;
+}
+.dropdown-menu a{
+  color: black;
+}
+.btn.btn-outline-success {
+  color: #0000f5; 
+}
