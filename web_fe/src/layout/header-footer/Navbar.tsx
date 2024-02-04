@@ -41,17 +41,18 @@ function Navbar(){
             </ul>
           </div>
   
-          {/* Search */}
+          {/* Search
           <form className="d-flex">
             <input className="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Search" />
             <button className="btn" type="submit">Search</button>
-          </form>
+          </form> */}
   
           {/*Cart icon */}
           <ul className="navbar-nav me-1">
             <li className="nav-item">
               <a className="nav-link" href="#">
                 <i className="fas fa-shopping-cart"></i>
+                Giỏ hàng
               </a>
             </li>
           </ul>
@@ -61,6 +62,7 @@ function Navbar(){
             <li className="nav-item">
               <a className="nav-link" href="#">
                 <i className="fas fa-user"></i>
+                <a href="#" className=""> Đăng Nhập</a> |  <a href="#" className="">Đăng Ký</a>
               </a>
             </li>
           </ul>

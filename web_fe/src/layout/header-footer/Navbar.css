@@ -3,6 +3,7 @@
  }
  .navbar a{
   color: #ffff;
+  text-decoration: none;
  }
  .navbar a:hover {
   color: black;
@@ -12,4 +13,13 @@
 }
 .btn.btn-outline-success {
   color: #0000f5; 
+}
+.fas.fa-user {
+  margin-right: 0.5rem;
+}
+.fas.fa-shopping-cart {
+  margin-right: 0.5rem;
+}
+i{
+  color: white;
 }
