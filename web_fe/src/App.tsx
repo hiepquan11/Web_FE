@@ -3,7 +3,8 @@ import logo from "./logo.svg";
 import "./App.css";
 import Navbar from "./layout/header-footer/Navbar";
 import Footer from "./layout/header-footer/Footer";
-import HomePage from "./layout/header-footer/Home/HomePage";
+import HomePage from "./layout/Home/HomePage";
+
 
 function App() {
   return (
