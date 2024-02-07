@@ -1,20 +1,7 @@
-import { Console } from "console";
 import ProductModel from "../Models/ProductModel";
+import { Request } from "./Request";
 
-export async function Request(Endpoint:string) {
-    // query path
-    const Response = await fetch(Endpoint);
 
-    //return error
-    if(!Response.ok){
-    throw new Error(`Khong the truy cap ${Endpoint}`)
-    }
-
-    // return ok
-    return Response.json();
-    
-
-}
 
 export async function GetAllProduct():Promise<ProductModel[]> {
     const Result: ProductModel[] = [];
