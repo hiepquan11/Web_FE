@@ -1,14 +1,8 @@
 import ProductModel from "../Models/ProductModel";
 import { Request } from "./Request";
 
-
-
-export async function GetAllProduct():Promise<ProductModel[]> {
+async function getProduct(url:string) {
     const Result: ProductModel[] = [];
-    // endpoint
-    const url: string  = 'http://localhost:8080/product';
-
-    // call request
     const response = await Request(url);
 
     // get json product
@@ -27,7 +21,19 @@ export async function GetAllProduct():Promise<ProductModel[]> {
             Updated_at: responseData[key].updated_at
         });
        
-    }
-    
-    return Result;
+}
+return Result;
+}
+export async function GetAllProduct():Promise<ProductModel[]> {
+   
+    // endpoint
+    const url: string  = 'http://localhost:8080/product';
+
+    // call request
+    return(getProduct(url));
+}
+
+export async function getNewProduct():Promise<ProductModel[]> {
+    const url:string  = 'http://localhost:8080/product?sort=productID,desc&page=0&size=3';
+    return (getProduct(url))
 }

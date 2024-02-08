@@ -1,17 +1,9 @@
 import ImageModel from "../Models/ImageModel";
 import { Request } from "./Request";
 
-export async function getAllImage(ProductID:number):Promise<ImageModel[]> {
+async function getImage(url:string):Promise<ImageModel[]> {
     const result : ImageModel[] = [];
-
-    // endpoint
-    const url:string = `http://localhost:8080/product/${ProductID}/ListImage`;
-
-    // call request
     const response = await Request(url);
-    //console.log(response);
-
-    // get image json
     const responseData = response._embedded.images;
 
     for(const key in responseData){
@@ -23,4 +15,23 @@ export async function getAllImage(ProductID:number):Promise<ImageModel[]> {
     });
     }
     return result;
+
+}
+export async function getAllImage(ProductID:number):Promise<ImageModel[]> {
+   
+    // endpoint
+    const url:string = `http://localhost:8080/product/${ProductID}/ListImage`;
+
+    // call request
+    
+    //console.log(response);
+
+    // get image json
+    return getImage(url);
+    
+}
+
+export async function getImageOfOneBook(ProductID:number):Promise<ImageModel[]> {
+    const url = `http://localhost:8080/product/${ProductID}/ListImage?sort=imageID,asc&page=0&size=1`;
+    return getImage(url);
 }
