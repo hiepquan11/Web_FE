@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+        import React, { useEffect, useState } from "react";
 import ProductProps from "./Components/ProductProps"
 import ProductModel from "../../Models/ProductModel";
 import { GetAllProduct } from "../../Api/ProductApi";
+import { Pagination } from "../Utils/Pagination";
 
 const ListProduct: React.FC = () => {
   
@@ -39,7 +40,7 @@ const ListProduct: React.FC = () => {
 
 
         <div className="container">
-            <div className="row mt-4">
+            <div className="row mt-4 mb-4">
                 {
                     listProduct.map((product) => (
                         <ProductProps key = {product.ProductID} product={product}></ProductProps>
@@ -47,6 +48,10 @@ const ListProduct: React.FC = () => {
                     )
                 }
             </div>
+            <div className="pagination justify-content-center">
+            <Pagination></Pagination>
+            </div>
+            
         </div>
     );
 }

@@ -1,3 +1,4 @@
+import { error } from "console";
 import ProductModel from "../Models/ProductModel";
 import { Request } from "./Request";
 
@@ -36,4 +37,33 @@ export async function GetAllProduct():Promise<ProductModel[]> {
 export async function getNewProduct():Promise<ProductModel[]> {
     const url:string  = 'http://localhost:8080/product?sort=productID,desc&page=0&size=3';
     return (getProduct(url))
+}
+
+export async function getProductById(productID: number):Promise<ProductModel|null> {
+    const url:string = `http://localhost:8080/product/${productID}`;
+
+    try {
+        const response = await fetch(url);
+        if(!response.ok){
+            throw new Error("Khong goi duoc api product")
+        }
+        const productData = await response.json();
+        if(productData){
+            return {
+                ProductID: productData.productID,
+            ProductName: productData.name,
+            Description: productData.description,
+            Discount: productData.discount,
+            Price: productData.price,
+            Quantity: productData.quantity,
+            Created_at: productData.created_at,
+            Updated_at: productData.updated_at
+            } 
+        } else {
+            throw new Error("Product khong ton tai");
+        }
+    } catch (error) {
+        console.log("Error: ", error);
+        return null;
+    }
 }

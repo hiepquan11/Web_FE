@@ -6,7 +6,7 @@ function HomePage(){
     return(
         <div>
             {/* <Banner></Banner> */}
-            <Courasel></Courasel>
+            {/* <Courasel></Courasel> */}
             <ListProduct></ListProduct>
         </div>
     );
