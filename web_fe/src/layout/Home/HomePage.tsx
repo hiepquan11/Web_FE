@@ -5,8 +5,8 @@ import ListProduct from "../Product/ListProduct";
 function HomePage(){
     return(
         <div>
-            {/* <Banner></Banner> */}
-            {/* <Courasel></Courasel> */}
+            <Banner></Banner>
+            <Courasel></Courasel>
             <ListProduct></ListProduct>
         </div>
     );

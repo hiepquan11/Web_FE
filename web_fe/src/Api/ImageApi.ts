@@ -31,7 +31,13 @@ export async function getAllImage(ProductID:number):Promise<ImageModel[]> {
     
 }
 
-export async function getImageOfOneBook(ProductID:number):Promise<ImageModel[]> {
+export async function getImageOfOneProduct(ProductID:number):Promise<ImageModel[]> {
     const url = `http://localhost:8080/product/${ProductID}/ListImage?sort=imageID,asc&page=0&size=1`;
     return getImage(url);
+}
+
+export async function getNewImage():Promise<ImageModel[]> {
+    const url: string = 'http://localhost:8080/image?sort=imageID,desc&page=0&size=3'
+    return getImage(url)
+    
 }

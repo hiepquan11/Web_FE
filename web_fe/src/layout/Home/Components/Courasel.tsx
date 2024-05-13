@@ -1,24 +1,29 @@
 import React, { useEffect, useState } from "react";
 import './Courasel.css'
-import ProductModel from "../../../Models/ProductModel";
-import { getNewProduct } from "../../../Api/ProductApi";
-import CouraselItem from "./CouraselItem";
+import { Carousel } from "flowbite-react";
+import { getNewEvent } from "../../../Api/EventApi";
+import EventModel from "../../../Models/EventModel";
+
 
 const Courasel:React.FC = () => {
-        const[listProduct, setListProduct] = useState<ProductModel[]>([])
         const[loadData, setLoadData] = useState(true);
-        const[error, setError] = useState(null);
+        const[error, setError] = useState(true);
+        const[listEvent, setListEvent] = useState<EventModel[]>([]);
 
-        useEffect(() => {
-            getNewProduct().then(
-                productData =>{
-                    setListProduct(productData);
+
+       
+
+        useEffect(() =>{
+            getNewEvent().then(
+                eventData =>{
+                    setListEvent(eventData);
                     setLoadData(false);
+                    setError(false);
                 }
             ).catch(
-                error => {
+                error =>{
                     setLoadData(false);
-                    setError(error.message);
+                    setError(error.message)
                 }
             )
         },[])
@@ -34,36 +39,21 @@ const Courasel:React.FC = () => {
             );
         }
 
-    return(
-      <div>
-      <div id="carouselExampleDark" className="carousel carousel-dark slide mt-3">
-          <div className="carousel-inner">
-              <div className="carousel-item active" data-bs-interval="10000">
-                    <CouraselItem key={0} product={listProduct[0]}></CouraselItem>
-              </div>
-              <div className="carousel-item " data-bs-interval="10000">
-              <CouraselItem key={1} product={listProduct[1]}></CouraselItem>
-              </div>
-              {/* <div className="carousel-item " data-bs-interval="10000">
-              <CouraselItem key={2} product={listProduct[2]}></CouraselItem>
-              </div> */}
-          </div>
-          <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-              <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span className="visually-hidden">Previous</span>
-          </button>
-          <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-              <span className="carousel-control-next-icon" aria-hidden="true"></span>
-              <span className="visually-hidden">Next</span>
-          </button>
-
-          <div className="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
-      </div>
-  </div>
-    );
+        return (
+            <div className=" grid h-56 grid-cols-2 gap-4 sm:h-64 xl:h-80 2xl:h-96">
+                <Carousel>
+                    <img src={listEvent[0].EventImage} alt="..." />
+                    <img src={listEvent[1].EventImage} alt="..." />
+                    <img src={listEvent[2].EventImage} alt="..." />
+                </Carousel>
+                <Carousel indicators={false}>
+                    <img src={listEvent[0].EventImage} alt="..." />
+                    <img src={listEvent[1].EventImage} alt="..." />
+                    <img src={listEvent[2].EventImage} alt="..." />
+                </Carousel>
+                
+            </div>
+            
+          );
 }
 export default Courasel;
