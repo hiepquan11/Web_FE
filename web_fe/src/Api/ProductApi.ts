@@ -9,7 +9,6 @@ async function getProduct(url:string) {
     // get json product
     const responseData = response._embedded.products;
     
-    console.log(response);
     for(const key in responseData){
         Result.push({
             ProductID: responseData[key].productID,
@@ -20,11 +19,11 @@ async function getProduct(url:string) {
             Quantity: responseData[key].quantity,
             Created_at: responseData[key].created_at,
             Updated_at: responseData[key].updated_at
-        });
-       
+        });   
+    }
+    return Result;
 }
-return Result;
-}
+
 export async function GetAllProduct():Promise<ProductModel[]> {
    
     // endpoint
@@ -66,4 +65,14 @@ export async function getProductById(productID: number):Promise<ProductModel|nul
         console.log("Error: ", error);
         return null;
     }
+}
+
+export async function findProductByName(productName:string): Promise<ProductModel[]> {
+
+    let url:string = `http://localhost:8080/product?sort=productID,desc&page=0&size=3`
+    if(productName !== ''){
+        url = `http://localhost:8080/product/search/findByNameContaining?name=${productName}`;
+    }
+
+    return (getProduct(url));
 }

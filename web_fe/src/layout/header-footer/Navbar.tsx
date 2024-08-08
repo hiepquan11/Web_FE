@@ -1,6 +1,24 @@
-import React from "react";
+import React, { ChangeEvent, useState } from "react";
 import './Navbar.css'
-function Navbar(){
+
+interface NavbarProps{
+  searchTerm: string;
+  setSearchTerm: (searchTerm: string) => void;
+}
+
+function Navbar({searchTerm, setSearchTerm}: NavbarProps){
+
+  const [tempKeyWord, setTempKeyWord] = useState('');
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) =>{
+    setTempKeyWord(event.target.value)
+  }
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) =>{
+    event.preventDefault();
+    setSearchTerm(tempKeyWord);  
+  }
+  
     return (
       <div className="Nav">
         <nav className="navbar navbar-expand-lg">
@@ -41,11 +59,10 @@ function Navbar(){
             </ul>
           </div>
   
-          {/* Search
-          <form className="d-flex">
-            <input className="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Search" />
-            <button className="btn" type="submit">Search</button>
-          </form> */}
+          <form className="d-flex pr-3.5" onSubmit={handleSubmit}>
+            <input className="form-control me-2" type="search" placeholder="Bạn cần gì..." aria-label="Search" value={tempKeyWord} onChange={handleInputChange} />
+          </form>
+
   
           {/*Cart icon */}
           <ul className="navbar-nav me-1">

@@ -1,28 +1,47 @@
-        import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProductProps from "./Components/ProductProps"
 import ProductModel from "../../Models/ProductModel";
-import { GetAllProduct } from "../../Api/ProductApi";
+import { GetAllProduct, findProductByName } from "../../Api/ProductApi";
 import { Pagination } from "../Utils/Pagination";
 
-const ListProduct: React.FC = () => {
-  
-    const[listProduct, setListProduct] = useState<ProductModel[]>([]);
+
+interface ListProductProps{
+    searchTerm: string,
+}
+
+function ListProduct({searchTerm}: ListProductProps) {
+
+    const [listProduct, setListProduct] = useState<ProductModel[]>([]);
     const [loadData, setData] = useState(true);
-    const[error, setError] = useState(null);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        GetAllProduct().then(
-            productData =>{
-                setListProduct(productData);
+        if(searchTerm === ''){
+            GetAllProduct().then(
+                productData =>{
+                    setListProduct(productData);
+                    setData(false);
+                }
+            ).catch(
+               error =>{
                 setData(false);
-            }
-        ).catch(
-           error =>{
-            setData(false);
-            setError(error.message);
-           }
-        );
-    },[])
+                setError(error.message);
+               }
+            );
+        } else {
+            findProductByName(searchTerm).then(
+                productData => {
+                    setListProduct(productData);
+                    setData(false);
+                }
+            ).catch(
+                error =>{
+                    setData(false);
+                    setError(error.message)
+                }
+            )
+        }
+    },[searchTerm])
 
 
     if(loadData){
@@ -32,19 +51,28 @@ const ListProduct: React.FC = () => {
         </div>)
     }
     if(error){
+        console.log(error)
         return(
         <div><h1>Error: ${error}</h1></div>)
     }
+    if(listProduct.length === 0){
+        return(
+            <div className="container">
+                <div className="d-flex align-items-center justify-content-center fs-3">
+                    <h1>Không tìm thấy tên sản phẩm !</h1>
+                </div>
+            </div>
+        )
+    }
+
 
     return(
-
-
         <div className="container">
             <div className="row mt-4 mb-4">
                 {
                     listProduct.map((product) => (
                         <ProductProps key = {product.ProductID} product={product}></ProductProps>
-                    )
+                        )
                     )
                 }
             </div>

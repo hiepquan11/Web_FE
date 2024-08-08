@@ -10,9 +10,6 @@ const Courasel:React.FC = () => {
         const[error, setError] = useState(true);
         const[listEvent, setListEvent] = useState<EventModel[]>([]);
 
-
-       
-
         useEffect(() =>{
             getNewEvent().then(
                 eventData =>{
@@ -40,7 +37,7 @@ const Courasel:React.FC = () => {
         }
 
         return (
-            <div className=" grid h-56 grid-cols-2 gap-4 sm:h-64 xl:h-80 2xl:h-96">
+            <div className=" grid h-56 grid-cols-2 gap-4 sm:h-64 xl:h-80 2xl:h-96 ">
                 <Carousel>
                     <img src={listEvent[0].EventImage} alt="..." />
                     <img src={listEvent[1].EventImage} alt="..." />
