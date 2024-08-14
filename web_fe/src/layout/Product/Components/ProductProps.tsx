@@ -49,11 +49,11 @@ const ProductProps: React.FC<ProductPropsInterface> = (props) => {
                 className="max-w-sm"
                 imgSrc={imageData}
             >
-                <a href="#">
+                <Link to={`/product/${props.product.ProductID}`}>
                     <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
                         {props.product.ProductName}
                     </h5>
-                </a>
+                </Link>
                 <div className="mb-5 mt-2.5 flex items-center">
                     <svg
                         className="h-5 w-5 text-yellow-300"
