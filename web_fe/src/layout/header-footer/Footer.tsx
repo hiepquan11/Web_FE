@@ -1,65 +1,58 @@
 import React from "react";
-function Footer(){
+import { Footer } from "flowbite-react";
+import { BsDribbble, BsFacebook, BsGithub, BsInstagram, BsTwitter } from "react-icons/bs";
+
+
+function footer(){
     return(
-        <div className="container">
-            <footer className="py-5">
-                <div className="row">
-                    <div className="col-6 col-md-2 mb-3">
-                        <h5>Section</h5>
-                        <ul className="nav flex-column">
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">Home</a></li>
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">Features</a></li>
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">Pricing</a></li>
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">FAQs</a></li>
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">About</a></li>
-                        </ul>
-                    </div>
-
-                    <div className="col-6 col-md-2 mb-3">
-                        <h5>Section</h5>
-                        <ul className="nav flex-column">
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">Home</a></li>
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">Features</a></li>
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">Pricing</a></li>
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">FAQs</a></li>
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">About</a></li>
-                        </ul>
-                    </div>
-
-                    <div className="col-6 col-md-2 mb-3">
-                        <h5>Section</h5>
-                        <ul className="nav flex-column">
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">Home</a></li>
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">Features</a></li>
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">Pricing</a></li>
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">FAQs</a></li>
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">About</a></li>
-                        </ul>
-                    </div>
-
-                    <div className="col-md-5 offset-md-1 mb-3">
-                        <form>
-                            <h5>Subscribe to our newsletter</h5>
-                            <p>Monthly digest of what's new and exciting from us.</p>
-                            <div className="d-flex flex-column flex-sm-row w-100 gap-2">
-                                <label  className="visually-hidden">Email address</label>
-                                <input id="newsletter1" type="text" className="form-control" placeholder="Email address"/>
-                                    <button className="btn btn-primary" type="button">Subscribe</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <div className="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
-                    <p>&copy; 2023 Company, Inc. All rights reserved.</p>
-                    <ul className="list-unstyled d-flex">
-                        <li className="ms-3"><a className="link-body-emphasis" href="#"> <i className="fas fa-tweeter"></i></a></li>
-                        <li className="ms-3"><a className="link-body-emphasis" href="#"> <i className="fas fa-instagram"></i></a></li>
-                        <li className="ms-3"><a className="link-body-emphasis" href="#"> <i className="fas fa-facebook"></i></a></li>
-                    </ul>
-                </div>
-            </footer>
+        <Footer container className="">
+        <div className="w-full">
+          <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
+            <div>
+              <Footer.Brand
+                href="https://flowbite.com"
+                src="https://flowbite.com/docs/images/logo.svg"
+                alt="Flowbite Logo"
+                name="Flowbite"
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
+              <div>
+                <Footer.Title title="about" />
+                <Footer.LinkGroup col>
+                  <Footer.Link href="#">Shop</Footer.Link>
+                  <Footer.Link href="#">Tailwind CSS</Footer.Link>
+                </Footer.LinkGroup>
+              </div>
+              <div>
+                <Footer.Title title="Follow us" />
+                <Footer.LinkGroup col>
+                  <Footer.Link href="#">Github</Footer.Link>
+                  <Footer.Link href="#">Discord</Footer.Link>
+                </Footer.LinkGroup>
+              </div>
+              <div>
+                <Footer.Title title="Legal" />
+                <Footer.LinkGroup col>
+                  <Footer.Link href="#">Privacy Policy</Footer.Link>
+                  <Footer.Link href="#">Terms &amp; Conditions</Footer.Link>
+                </Footer.LinkGroup>
+              </div>
+            </div>
+          </div>
+          <Footer.Divider />
+          <div className="w-full sm:flex sm:items-center sm:justify-between">
+            <Footer.Copyright href="#" by="Flowbite™" year={2022} />
+            <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
+              <Footer.Icon href="#" icon={BsFacebook} />
+              <Footer.Icon href="#" icon={BsInstagram} />
+              <Footer.Icon href="#" icon={BsTwitter} />
+              <Footer.Icon href="#" icon={BsGithub} />
+              <Footer.Icon href="#" icon={BsDribbble} />
+            </div>
+          </div>
         </div>
+      </Footer>
     );
 }
-export default Footer;
+export default footer;
