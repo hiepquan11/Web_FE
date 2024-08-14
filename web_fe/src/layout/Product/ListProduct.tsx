@@ -3,6 +3,7 @@ import ProductProps from "./Components/ProductProps"
 import ProductModel from "../../Models/ProductModel";
 import { GetAllProduct, findProductByName } from "../../Api/ProductApi";
 import { Pagination } from "../Utils/Pagination";
+import LoadingData from "../Utils/LoadingData";
 
 
 interface ListProductProps{
@@ -46,9 +47,8 @@ function ListProduct({searchTerm}: ListProductProps) {
 
     if(loadData){
         return(
-        <div>
-            <h1>Load data</h1>
-        </div>)
+            <LoadingData/>
+        );
     }
     if(error){
         console.log(error)

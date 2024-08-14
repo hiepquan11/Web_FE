@@ -5,6 +5,7 @@ import { getAllImage } from "../../../Api/ImageApi";
 import { Link } from "react-router-dom";
 import { Button, Card } from "flowbite-react";
 import { HiShoppingCart } from "react-icons/hi";
+import LoadingData from "../../Utils/LoadingData";
 interface ProductPropsInterface {
     product: ProductModel;
 }
@@ -30,7 +31,7 @@ const ProductProps: React.FC<ProductPropsInterface> = (props) => {
     }, [])
 
     if (loadData) {
-        return (<div><h1>Load Data....</h1></div>);
+        return (<LoadingData/>);
 
     }
     if (error) {

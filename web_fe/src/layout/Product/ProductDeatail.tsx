@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ProductModel from "../../Models/ProductModel";
 import { getProductById } from "../../Api/ProductApi";
+import LoadingData from "../Utils/LoadingData";
 
 function ProductDetail(){
 
@@ -37,7 +38,7 @@ function ProductDetail(){
 
     if(loadData){
         return(
-            <h1>Loading data</h1>
+            <LoadingData/>
         );
     }
 
