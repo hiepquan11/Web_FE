@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "./App.css";
-import Navbar from "./layout/header-footer/Navbar";
 import Footer from "./layout/header-footer/Footer";
 import HomePage from "./layout/Home/HomePage";
+import NavBar from "./layout/header-footer/NavBar";
+
 
 
 function App() {
@@ -11,7 +12,7 @@ function App() {
 
   return (
    <div className="App">
-      <Navbar searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
+      <NavBar searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
       <HomePage searchTerm={searchTerm} />
       <Footer/>
    </div>

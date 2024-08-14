@@ -67,8 +67,8 @@ function ListProduct({searchTerm}: ListProductProps) {
 
 
     return(
-        <div className="container">
-            <div className="row mt-4 mb-4">
+        <div className="container flex justify-center items-center">
+            <div className="grid grid-cols-3 gap-4 mt-4 mb-4">
                 {
                     listProduct.map((product) => (
                         <ProductProps key = {product.ProductID} product={product}></ProductProps>
@@ -76,10 +76,6 @@ function ListProduct({searchTerm}: ListProductProps) {
                     )
                 }
             </div>
-            <div className="pagination justify-content-center">
-            <Pagination></Pagination>
-            </div>
-            
         </div>
     );
 }
