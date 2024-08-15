@@ -3,11 +3,14 @@ import { useParams } from "react-router-dom";
 import ProductModel from "../../Models/ProductModel";
 import { getProductById } from "../../Api/ProductApi";
 import LoadingData from "../Utils/LoadingData";
+import { getCategoryByProductID } from "../../Api/CategoryApi";
+import CategoryModel from "../../Models/CategoryModel";
 
 function ProductDetail(){
 
    const {productID} = useParams();
     const [product, setProduct] = useState<ProductModel | null>(null);
+    const [category, setCategory] = useState<CategoryModel | null>(null);
     const [loadData, setLoadData] = useState(true);
     const [error, setError] = useState(null);
 
@@ -34,13 +37,27 @@ function ProductDetail(){
                 setError(error.message);
             }
         )
-    },[])
+    },[paramsProductId])
+
+    useEffect(() =>{
+        getCategoryByProductID(paramsProductId).then(
+            categoryData =>{
+                setCategory(categoryData);
+                setLoadData(false);
+            }
+        ).catch(
+            error =>{
+                setError(error.message);
+            }
+        )
+    },[paramsProductId])
 
     if(loadData){
         return(
             <LoadingData/>
         );
     }
+    console.log(category)
 
     if(error){
         return(
@@ -49,6 +66,7 @@ function ProductDetail(){
             </div>
         );
     }
+
 
     return(
         <div className='flex flex-col justify-between lg:flex-row gap-16 lg:items-center p-4'>
@@ -64,7 +82,7 @@ function ProductDetail(){
         {/* ABOUT */}
         <div className='flex flex-col gap-4 lg:w-2/4'>
             <div>
-                <span className=' text-violet-600 font-semibold'>Special Sneaker</span>
+                <span className=' text-violet-600 font-semibold'>{category?.categoryName}</span>
                 <h1 className='text-3xl font-bold'>{product?.ProductName}</h1>
             </div>
             <p className='text-gray-700'>{product?.Description}</p>
