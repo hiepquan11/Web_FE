@@ -14,6 +14,7 @@ function ProductDetail(){
     const [product, setProduct] = useState<ProductModel | null>(null);
     const [category, setCategory] = useState<CategoryModel | null>(null);
     const [listImage, setListImage] = useState<ImageModel[]>([]);
+    const [quantity, setQuantity] = useState(1);
     const [loadData, setLoadData] = useState(true);
     const [error, setError] = useState(null);
 
@@ -26,6 +27,27 @@ function ProductDetail(){
     } catch (error) {
         paramsProductId = 0;
         console.log(error);
+    }
+
+    const increaseQuantity = () =>{
+        const stockQuantity = (product && product.Quantity ? product.Quantity : 0);
+        if(quantity < stockQuantity){
+            setQuantity(quantity + 1);
+        }
+    }
+
+    const reduceQuantity = () =>{
+        if(quantity >= 2){
+            setQuantity(quantity - 1);
+        }
+    }
+
+    const handleChangeQuantity = (event: React.ChangeEvent<HTMLInputElement>) =>{
+        const newQuantity = parseInt(event.target.value);
+        const stockQuantity = (product && product.Quantity ? product.Quantity : 0);
+        if(!isNaN(newQuantity) && newQuantity >=1 && newQuantity <= stockQuantity){
+            setQuantity(newQuantity);
+        }
     }
 
     useEffect(() =>{
@@ -120,9 +142,9 @@ function ProductDetail(){
             <h6 className='text-2xl font-semibold'>{product?.Price.toLocaleString('vi-VN')}&#8363;</h6>
             <div className='flex flex-row items-center gap-12 justify-center'>
                 <div className='flex flex-row items-center'>
-                    <button className='bg-gray-200 py-2 px-5 rounded-lg text-violet-800 text-3xl'>-</button>
-                    <span className='py-4 px-6 rounded-lg'></span>
-                    <button className='bg-gray-200 py-2 px-4 rounded-lg text-violet-800 text-3xl'>+</button>
+                    <button className='bg-gray-200 py-2 px-5 rounded-lg text-violet-800 text-3xl' onClick={reduceQuantity}>-</button>
+                    <span className='py-4 px-6 rounded-lg text-3xl text-center'>{quantity}</span>
+                    <button className='bg-gray-200 py-2 px-4 rounded-lg text-violet-800 text-3xl' onClick={increaseQuantity}>+</button>
                 </div>
                 <button className='bg-yellow-300 text-black font-semibold py-3 px-16 rounded-xl h-full'>Add to Cart</button>
             </div>
