@@ -101,7 +101,7 @@ const ProductProps: React.FC<ProductPropsInterface> = (props) => {
                     </span>
                 </div>
                 <div className="flex items-center justify-between">
-                    <span className="font-bold text-gray-900 dark:text-white">{props.product.Price}</span>
+                    <span className="font-bold text-gray-900 dark:text-white">{props.product.Price.toLocaleString('vi-VN')}&#8363;</span>
                     <Button>
                         <HiShoppingCart className="mr-2 h-5 w-5" />
                        Thêm vào giỏ
