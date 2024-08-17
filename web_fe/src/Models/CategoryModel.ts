@@ -1,6 +1,6 @@
 class CategoryModel{
     categoryId: number;
-    categoryName?: string;
+    categoryName: string;
 
     constructor(categoryId: number, categoryName:string){
         this.categoryId = categoryId;

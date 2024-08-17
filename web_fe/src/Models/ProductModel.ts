@@ -1,7 +1,7 @@
 class ProductModel {
     ProductID: number;
-    ProductName?: string;
-    Description?: string;
+    ProductName: string;
+    Description: string;
     Discount?: number;
     Price: number;
     Quantity: number;
