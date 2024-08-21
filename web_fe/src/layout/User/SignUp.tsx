@@ -29,6 +29,7 @@ function SignUp(){
         confirmpassword:''
     })
     const [validateError, setValidateError] = useState<string | null>(null);
+    const [notify, setNotify] = useState<string | null>(null);
 
     const handleSubmit = async (event: React.FormEvent) =>{
         event.preventDefault();
@@ -43,48 +44,57 @@ function SignUp(){
 
         if (!user.fullname || !user.username || !user.email || !user.phonenumber || !user.province || !user.district || !user.password || !user.confirmpassword) {
             error = "Vui lòng điền đầy đủ thông tin";
+            setNotify(null);
         } else if (checkUsername) {
-            error = "Username đã tồn tại";
+            error = "Username đã được sử dụng";
+            setNotify(null);
         } else if (checkEmail) {
-            error = "Email đã tồn tại";
+            error = "Email đã được sử dụng";
+            setNotify(null);
         } else if (!phoneRegex.test(user.phonenumber)) {
             error = "Số điện thoại không hợp lệ";
+            setNotify(null);
         } else if (!passwordRegex.test(user.password)) {
             error = "Mật khẩu phải có ít nhất 8 ký tự và có ít nhất 1 ký tự đặc biệt";
+            setNotify(null);
         } else if (user.password !== user.confirmpassword) {
             error = "Mật khẩu không khớp";
+            setNotify(null);
+
         }
         
+        console.log(user)
         if(error){
             setValidateError(error);
         } else {
             setValidateError(null);
+            //send data
+            try {
+                const response = await fetch('http://localhost:8080/userAccount/register',{
+                    method:"POST",
+                    headers:{
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        fullName: user.fullname,
+                        phoneNumber: user.phonenumber,
+                        userName: user.username,
+                        email: user.email,
+                        address: `${user.province},${user.district}`,
+                        password: user.password
+                    })
+                });
+
+                if(response.ok){
+                    setNotify("Đăng ký thành công!");
+                    setValidateError(null);
+                } else {
+                    setNotify("Đăng ký thất bại!")
+                }
+            } catch (error) {
+                console.log(error)
+            }
         }
-        console.log(user);
-
-        // send data
-        // try {
-        //     const response = await fetch('http://localhost:8080/userAccount/register',{
-        //         method:"POST",
-        //         headers:{
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify({
-        //             fullName: user.fullname,
-        //             phoneNumber: user.phonenumber,
-        //             userName: user.username,
-        //             email: user.email,
-        //             address: `${user.province},${user.district}`,
-        //             password: user.password
-        //         })
-        //     });
-
-        //     if(response.ok){
-
-        //     }
-        // } catch (error) {
-            
-        // }
     }
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>{
@@ -93,7 +103,7 @@ function SignUp(){
 
     const checkExistUsername = async(username: string) =>{
         try {
-            const response = await fetch(`http://localhost:8080/user/search/existsByUserName?username=${username}`);
+            const response = await fetch(`  `);
             const data = await response.text();
             if(data === "true"){
                 return true;
@@ -175,13 +185,7 @@ function SignUp(){
                 <h1 className="text-lg font-semibold tracking-wide mb-2">ĐĂNG KÝ</h1>
             </div>
 
-            <div className="text-center mx-20">
-                {validateError && (
-                    <div className="text-red-500 text-sm mb-4">
-                        {validateError}
-                    </div>
-                )}
-            </div>
+            
 
             <form onSubmit={handleSubmit} className="text-center mx-20">
                 <input type="text" name="fullname" placeholder="Họ tên" className="w-full py-3 rounded-md shadow-2xl mb-6 pl-5" onChange={handleChange}/>
@@ -201,9 +205,23 @@ function SignUp(){
                 <input type="password" name="password" placeholder="Mật khẩu" className="w-full py-3 rounded-md shadow-2xl mb-6 pl-5" onChange={handleChange}/>
 
                 <input type="password" name="confirmpassword" placeholder="Xác nhận mật khẩu" className="w-full py-3 rounded-md shadow-2xl mb-8 pl-5" onChange={handleChange}/>
+
+                <div className="text-center mx-20">
+                    {validateError && (
+                        <div className="text-red-500 text-lg mb-4">
+                            {validateError}
+                        </div>
+                    )}
+                    {notify && (
+                        <div className="text-green-500 text-lg mb-4">
+                            {notify}
+                        </div>
+                    )}
+                </div>
               
 
                 <button type="submit" className="text-sm font-semibold bg-pink-600 py-2 px-3 rounded-md text-white hover:bg-indigo-600 mb-4">Đăng ký</button>
+               
                 
                 <h1 className="">Bạn đã có tài khoản? <Link to={"/signin"} className="text-sm font-medium text-indigo-600">Đăng nhập</Link></h1>
             </form> 
