@@ -8,6 +8,7 @@ import About from "./layout/about/About";
 import ProductDetail from "./layout/Product/ProductDeatail";
 import SignUp from "./layout/User/SignUp";
 import SignIn from "./layout/User/SignIn";
+import ActivationPage from "./layout/User/ActiovationPage";
 
 
 
@@ -25,6 +26,7 @@ function App() {
           <Route path="/product/:productID" element={<ProductDetail/>}></Route>
           <Route path="/signin" element={<SignIn/>}/>
           <Route path="/signup" element={<SignUp/>}/>
+          <Route path="/activate/:email/:activationCode" element={<ActivationPage/>}/>
         </Routes>
         <Footer/>
       </BrowserRouter>

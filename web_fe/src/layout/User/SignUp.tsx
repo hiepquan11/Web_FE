@@ -14,7 +14,7 @@ interface District{
 
 interface Ward{
     value: string;
-    lable: string;
+    label: string;
 }
 
 function SignUp(){
@@ -88,8 +88,8 @@ function SignUp(){
                         phoneNumber: user.phonenumber,
                         userName: user.username,
                         email: user.email,
-                        address: `${user.province},${user.district},${user.ward}`,
-                        password: user.password
+                        address: `${user.ward}, ${user.district}, ${user.province}`,
+                        password: user.password,
                     })
                 });
 
@@ -210,7 +210,7 @@ function SignUp(){
     }
     const handleSelectedWard = (selectedID: SingleValue<Ward>) =>{
         setSelectedWard(selectedID ? selectedID.value: null);
-        setUser({...user, ward: selectedID ? selectedID.lable : ''})
+        setUser({...user, ward: selectedID ? selectedID.label : ''})
     }
 
     return(
