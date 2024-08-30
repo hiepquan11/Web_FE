@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 
 function SignIn(){
 
@@ -33,15 +33,13 @@ function SignIn(){
             const data = await response.json();
             const {jwt} = data;
             localStorage.setItem('token',jwt);
-            setError("Đăng nhập thành công");
+            redirect('/')
             
         } catch (error) {
             setError("Tài khoản hoặc mật khẩu không chính xác");
         }
        
     }
-
-    console.log(username, password);
     
     return(
         <div className="max-w-2xl md:mx-auto mx-5 bg-white shadow-2xl rounded-lg h-auto md:mt-10 mt-36 mb-10 py-5">
