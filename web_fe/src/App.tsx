@@ -12,6 +12,7 @@ import ActivationPage from "./layout/User/ActiovationPage";
 import Dashboard from "./Api/admin/Dashboard";
 import Sidebar from "./Api/admin/Components/Sidebar";
 import ProductPage from "./Api/admin/Components/main/ProductPage";
+import UserPage from "./Api/admin/Components/main/UserPage";
 
 
 const MyRoute = () =>{
@@ -40,6 +41,7 @@ const MyRoute = () =>{
           <Dashboard />
           <Routes>
             <Route path="/admin/productPage" element={<ProductPage />} />
+            <Route path="/admin/userPage" element={<UserPage/>}/>
           </Routes>
         </>
       )}

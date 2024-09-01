@@ -1,8 +1,8 @@
-const ProductPage = () =>{
+const UserPage = () =>{
     return(
         <>
         <div className="text-black font-bold text-3xl ">
-            Danh sách sản phẩm
+            Danh sách người dùng
         </div>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg ml-64">
                 <div className="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
@@ -69,13 +69,19 @@ const ProductPage = () =>{
                                 </div>
                             </th>
                             <th scope="col" className="px-6 py-3">
-                                Product name
+                                Họ và Tên
                             </th>
                             <th scope="col" className="px-6 py-3">
-                                Category
+                                Tên tài khoản
                             </th>
                             <th scope="col" className="px-6 py-3">
-                                Price
+                                Email
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Số điện thoại
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Ngày tạo
                             </th>
                             <th scope="col" className="px-6 py-3">
                                 Action
@@ -214,6 +220,5 @@ const ProductPage = () =>{
             </div>
         </>
     )
-        
 }
-export default ProductPage;
+export default UserPage;
