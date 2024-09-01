@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Sidebar(){
     return(
        <>
@@ -14,9 +16,21 @@ function Sidebar(){
                         </a>
                     </li>
                     <li className="mb-1 group">
+                        <a href="#" className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
+                            <i className="ri-home-2-line mr-3 text-lg"></i>
+                            <span className="text-sm">Người dùng</span>
+                        </a>
+                    </li>
+                    <li className="mb-1 group">
+                        <Link to="/admin/productPage" className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
+                            <i className="ri-home-2-line mr-3 text-lg"></i>
+                            <span className="text-sm">Sản phẩm</span>
+                        </Link>
+                    </li>
+                    <li className="mb-1 group">
                         <a href="#" className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100 sidebar-dropdown-toggle">
                             <i className="ri-instance-line mr-3 text-lg"></i>
-                            <span className="text-sm">Orders</span>
+                            <span className="text-sm">Đơn hàng</span>
                             <i className="ri-arrow-right-s-line ml-auto group-[.selected]:rotate-90"></i>
                         </a>
                         <ul className="pl-7 mt-2 hidden group-[.selected]:block">
@@ -30,6 +44,12 @@ function Sidebar(){
                                 <a href="#" className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3">Canceled order</a>
                             </li> 
                         </ul>
+                    </li>
+                    <li className="mb-1 group">
+                        <a href="#" className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
+                            <i className="ri-home-2-line mr-3 text-lg"></i>
+                            <span className="text-sm">Doanh thu</span>
+                        </a>
                     </li>
                     <li className="mb-1 group">
                         <a href="#" className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100 sidebar-dropdown-toggle">
@@ -46,7 +66,7 @@ function Sidebar(){
                     <li className="mb-1 group">
                         <a href="#" className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                             <i className="ri-settings-2-line mr-3 text-lg"></i>
-                            <span className="text-sm">Settings</span>
+                            <span className="text-sm">Cài đặt</span>
                         </a>
                     </li>
                 </ul>

@@ -1,3 +1,5 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import ProductPage from "./Components/main/ProductPage";
 import Sidebar from "./Components/Sidebar";
 
 function Dashboard(){
