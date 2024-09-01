@@ -9,6 +9,7 @@ import ProductDetail from "./layout/Product/ProductDeatail";
 import SignUp from "./layout/User/SignUp";
 import SignIn from "./layout/User/SignIn";
 import ActivationPage from "./layout/User/ActiovationPage";
+import TestDecodeJwt from "./layout/User/TestDecodeJwt";
 
 
 
@@ -27,6 +28,7 @@ function App() {
           <Route path="/signin" element={<SignIn/>}/>
           <Route path="/signup" element={<SignUp/>}/>
           <Route path="/activate/:email/:activationCode" element={<ActivationPage/>}/>
+          <Route path="/test" element={<TestDecodeJwt/>}></Route>
         </Routes>
         <Footer/>
       </BrowserRouter>
