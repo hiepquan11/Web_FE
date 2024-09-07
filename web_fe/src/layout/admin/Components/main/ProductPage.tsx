@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import ProductModel from "../../../../Models/ProductModel";
 import ImageModel from "../../../../Models/ImageModel";
-import { GetAllProduct } from "../../../ProductApi";
+import { GetAllProduct } from "../../../../Api/ProductApi";
 import CategoryModel from "../../../../Models/CategoryModel";
-import { getCategoryByProductID } from "../../../CategoryApi";
+import { getCategoryByProductID } from "../../../../Api/CategoryApi";
 import { Button } from "flowbite-react";
 
 const ProductPage = () =>{

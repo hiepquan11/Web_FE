@@ -9,10 +9,10 @@ import ProductDetail from "./layout/Product/ProductDeatail";
 import SignUp from "./layout/User/SignUp";
 import SignIn from "./layout/User/SignIn";
 import ActivationPage from "./layout/User/ActiovationPage";
-import Dashboard from "./Api/admin/Dashboard";
-import Sidebar from "./Api/admin/Components/Sidebar";
-import ProductPage from "./Api/admin/Components/main/ProductPage";
-import UserPage from "./Api/admin/Components/main/UserPage";
+import Dashboard from "./layout/admin/Dashboard";
+import Sidebar from "./layout/admin/Components/Sidebar";
+import ProductPage from "./layout/admin/Components/main/ProductPage";
+import UserPage from "./layout/admin/Components/main/UserPage";
 
 
 const MyRoute = () =>{
