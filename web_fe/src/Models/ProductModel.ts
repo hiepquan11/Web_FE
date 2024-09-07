@@ -7,6 +7,7 @@ class ProductModel {
     Quantity: number;
     Created_at: Date;
     Updated_at: Date;
+    Category: string;
     
     constructor(ProductID: number,
         ProductName: string,
@@ -15,7 +16,8 @@ class ProductModel {
         Price: number,
         Quantity: number,
         Created_at: Date,
-        Updated_at: Date){
+        Updated_at: Date,
+        Category: string){
 
             this.ProductID = ProductID;
             this.Created_at = Created_at;
@@ -25,6 +27,7 @@ class ProductModel {
             this.ProductName = ProductName;
             this.Quantity = Quantity;
             this.Updated_at = Updated_at;
+            this.Category = Category;
     }
 }
 export default ProductModel;
