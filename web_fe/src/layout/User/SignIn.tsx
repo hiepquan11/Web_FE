@@ -29,14 +29,13 @@ function SignIn(){
                 throw new Error("Đăng nhập thất bại");
             }
 
-
             const data = await response.json();
             const {jwt} = data;
             localStorage.setItem('token',jwt);
             redirect('/')
             
-        } catch (error) {
-            setError("Tài khoản hoặc mật khẩu không chính xác");
+        } catch (error) {   
+            setError("Lỗi trong quá trình đăng nhập");
         }
        
     }

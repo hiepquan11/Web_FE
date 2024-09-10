@@ -5,6 +5,7 @@ import { GetAllProduct } from "../../../../Api/ProductApi";
 import CategoryModel from "../../../../Models/CategoryModel";
 import { getCategoryByProductID } from "../../../../Api/CategoryApi";
 import { Button } from "flowbite-react";
+import { Link } from "react-router-dom";
 
 const ProductPage = () =>{
     const [listProduct, setListProduct] = useState<ProductModel[]>([]);
@@ -51,8 +52,10 @@ const ProductPage = () =>{
                 </div>
             </div>
             <div className="flex justify-center items-center mt-4 sm:mt-0">
-                <Button className="bg-green-500 hover:bg-green-950">Thêm sản phẩm mới</Button>
-            </div>
+                    <Link to="/admin/addProduct">
+                        <Button className="bg-green-500 hover:bg-green-950">Thêm sản phẩm mới</Button>
+                    </Link>
+                </div>
         </div>
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
