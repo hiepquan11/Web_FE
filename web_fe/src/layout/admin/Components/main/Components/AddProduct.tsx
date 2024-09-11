@@ -3,7 +3,7 @@ import { FormEvent, useState } from "react"
 const AddProduct: React.FC = () =>{
     const [product, setProduct] = useState({
         productId: 0,
-        productName:'',
+        name:'',
         description:'',
         price: 0,
         quantity: 0,
@@ -27,7 +27,7 @@ const AddProduct: React.FC = () =>{
                 alert('thanh cong');
                 setProduct({
                     productId: 0,
-                    productName:'',
+                    name:'',
                     description:'',
                     price: 0,
                     quantity: 0,
@@ -46,7 +46,7 @@ const AddProduct: React.FC = () =>{
                 <h1 className="text-lg font-semibold tracking-wide mb-2">Thêm sản phẩm</h1>
             
             <form onSubmit={handleSubmit} className="text-center mx-20">
-                <input type="text" name="productname" placeholder="Tên sản phẩm" className="w-full py-3 rounded-md shadow-2xl mb-6 pl-5" value={product.productName} onChange={(e) => setProduct({...product, productName: e.target.value})} />
+                <input type="text" name="productname" placeholder="Tên sản phẩm" className="w-full py-3 rounded-md shadow-2xl mb-6 pl-5" value={product.name} onChange={(e) => setProduct({...product, name: e.target.value})} />
                 
 
                 <input type="number" name="price" placeholder="Giá" className="w-full py-3 rounded-md shadow-2xl mb-6 pl-5" value={product.price} onChange={(e) => setProduct({...product, price: parseInt(e.target.value)})} />
