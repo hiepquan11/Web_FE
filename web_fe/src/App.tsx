@@ -10,8 +10,7 @@ import SignUp from "./layout/User/SignUp";
 import SignIn from "./layout/User/SignIn";
 import ActivationPage from "./layout/User/ActiovationPage";
 import Dashboard from "./layout/admin/Dashboard";
-import Sidebar from "./layout/admin/Components/Sidebar";
-import ProductPage from "./layout/admin/Components/main/ProductPage";
+import ProductPage from "./layout/admin/Components/main/ProductManagement";
 import UserPage from "./layout/admin/Components/main/UserPage";
 import AddProduct from "./layout/admin/Components/main/Components/AddProduct";
 

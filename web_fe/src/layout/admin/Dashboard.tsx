@@ -1,12 +1,14 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ProductPage from "./Components/main/ProductPage";
+import ProductPage from "./Components/main/ProductManagement";
 import Sidebar from "./Components/Sidebar";
+import RequireAdmin from "./Components/main/Components/RequireAdmin";
 
-function Dashboard(){
+const Dashboard = () =>{
     return(
         <div className="text-gray-800 font-inter">
             <Sidebar/>
         </div>
     )
 }
-export default Dashboard;
+const DashboardPage = RequireAdmin(Dashboard);
+export default DashboardPage;

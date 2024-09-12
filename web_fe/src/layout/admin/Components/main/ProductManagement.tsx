@@ -6,6 +6,7 @@ import CategoryModel from "../../../../Models/CategoryModel";
 import { getCategoryByProductID } from "../../../../Api/CategoryApi";
 import { Button } from "flowbite-react";
 import { Link } from "react-router-dom";
+import RequireAdmin from "./Components/RequireAdmin";
 
 const ProductPage = () =>{
     const [listProduct, setListProduct] = useState<ProductModel[]>([]);
@@ -115,4 +116,5 @@ const ProductPage = () =>{
     )
         
 }
-export default ProductPage;
+const ProductManagementPage = RequireAdmin(ProductPage)
+export default ProductManagementPage;

@@ -1,4 +1,5 @@
 import { FormEvent, useState } from "react"
+import RequireAdmin from "./RequireAdmin";
 
 const AddProduct: React.FC = () =>{
     const [product, setProduct] = useState({
@@ -69,4 +70,5 @@ const AddProduct: React.FC = () =>{
             
     )
 }
-export default AddProduct;
+const AddProductPage = RequireAdmin(AddProduct);
+export default AddProductPage;
