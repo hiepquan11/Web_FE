@@ -1,5 +1,9 @@
-import { FormEvent, useState } from "react"
+import React, { FormEvent, useEffect, useState } from "react"
 import RequireAdmin from "./RequireAdmin";
+import CategoryModel from "../../../../../Models/CategoryModel";
+import Select, { SingleValue } from 'react-select';
+import { getAllCategories } from "../../../../../Api/CategoryApi";
+import { Label } from "flowbite-react";
 
 const AddProduct: React.FC = () =>{
     const [product, setProduct] = useState({
@@ -9,23 +13,38 @@ const AddProduct: React.FC = () =>{
         price: 0,
         quantity: 0,
         discount: 0,
+        listImage:[
+            {
+                imageUrl: '',
+                name: ''
+            }
+        ],
+        listCategory:[
+            {
+                categoryID:0 
+            }
+        ]
 
     })
+
+    const [selectedImages, setSelectedImages] = useState<File[]>([]);
+    const [listCategories, setListCategories] = useState<CategoryModel[]>([]);
+    const [selectedCategory, setSelectedCategory] = useState();
 
     const handleSubmit = async (event: FormEvent) =>{
         event.preventDefault();
         const token = localStorage.getItem('token')
         try {
-            const response = await fetch('http://localhost:8080/product',{
-                method: 'POST',
+            const response = await fetch('http://localhost:8080/api/product/addProduct',{
+                method: "POST",
                 headers:{
-                    'Content-Type' : 'application/json',
-                    'Authorization' : `Bearer ${token}`
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
                 },
                 body: JSON.stringify(product)
             })
             if(response.ok){
-                alert('thanh cong');
+                alert('thanh cong')
                 setProduct({
                     productId: 0,
                     name:'',
@@ -33,12 +52,40 @@ const AddProduct: React.FC = () =>{
                     price: 0,
                     quantity: 0,
                     discount: 0,
+                    listImage:[
+                        {
+                            imageUrl: '',
+                            name: ''
+                        }
+                    ],
+                    listCategory:[{
+                        categoryID:0
+                    }]
                 })
-            } else {
-                alert('that bai')
             }
         } catch (error) {
+            
+        }
+    }
+
+    useEffect(() =>{
+        try {
+            getAllCategories().then(
+                categories =>{
+                    setListCategories(categories);
+                }
+            ).catch(error =>{
+                console.log(error.message)
+            })
+        } catch (error) {
             console.log(error)
+        }
+    })
+
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) =>{
+        const files = event.target.files;
+        if(files){
+            setSelectedImages(Array.from(files))
         }
     }
     return (
@@ -56,6 +103,19 @@ const AddProduct: React.FC = () =>{
 
                 <input type="number" name="discount" placeholder="Giảm giá" className="w-full py-3 rounded-md shadow-2xl mb-6 pl-5" value={product.discount} onChange={(e) => setProduct({...product, discount: parseInt(e.target.value)})} />
                  <input type="number" name="quantity" placeholder="Số lượng" className="w-full py-3 rounded-md shadow-2xl mb-6 pl-5" value={product.quantity} onChange={(e) => setProduct({...product, quantity: parseInt(e.target.value)})} />
+                 {
+                    listCategories && listCategories.length > 0 && (
+                        <Select options={
+                            listCategories.map((category) =>({
+                                value: category.categoryId,
+                                label: category.categoryName
+                            }))
+                        } className="w-1/2" placeholder="Loại sản phẩm"  />
+
+                    )
+                 }
+                
+                 <input type="file" multiple accept="image/*" onChange={handleFileChange}/>
 
                 
                 <div className="flex space-x-4 mb-6">

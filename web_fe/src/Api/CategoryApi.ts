@@ -32,6 +32,11 @@ async function getOneCategory(url: string) {
     return result;
 }
 
+export async function getAllCategories():Promise<CategoryModel[]> {
+    const url: string = 'http://localhost:8080/category';
+    return getCategory(url);
+}
+
 export async function getCategoryByProductID(productID:number):Promise<CategoryModel | null> {
     const url: string = `http://localhost:8080/product/${productID}/ListCategory`;
     return getOneCategory(url);
