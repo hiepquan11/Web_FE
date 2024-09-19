@@ -1,9 +1,8 @@
 import React, { FormEvent, useEffect, useState } from "react"
 import RequireAdmin from "./RequireAdmin";
 import CategoryModel from "../../../../../Models/CategoryModel";
-import Select, { SingleValue } from 'react-select';
-import { getAllCategories } from "../../../../../Api/CategoryApi";
-import { Label } from "flowbite-react";
+import { getAllCategories, getCategoryById } from "../../../../../Api/CategoryApi";
+import { Dropdown, Select } from "flowbite-react";
 
 const AddProduct: React.FC = () =>{
     const [product, setProduct] = useState({
@@ -15,8 +14,7 @@ const AddProduct: React.FC = () =>{
         discount: 0,
         listImage:[
             {
-                imageUrl: '',
-                name: ''
+              imageURL: [] as String[]
             }
         ],
         listCategory:[
@@ -25,25 +23,50 @@ const AddProduct: React.FC = () =>{
             }
         ]
 
-    })
+    });
 
-    const [selectedImages, setSelectedImages] = useState<File[]>([]);
+    const [selectedImages, setSelectedImages] = useState<FileList>();
+    const [listImages, setListImages] = useState<String[]>([]);
     const [listCategories, setListCategories] = useState<CategoryModel[]>([]);
-    const [selectedCategory, setSelectedCategory] = useState();
+    const [selectedCategory, setSelectedCategory] = useState<number | 1>(1);
 
     const handleSubmit = async (event: FormEvent) =>{
         event.preventDefault();
         const token = localStorage.getItem('token')
+
+        const formData = new FormData();
+        const arrFile = Array.from(selectedImages || []);
+        for(const file of arrFile){
+            formData.append("file", file);
+        }
+        formData.append("name", product.name)
         try {
-            const response = await fetch('http://localhost:8080/api/product/addProduct',{
+            const imageUrlResponse = await fetch('http://localhost:8080/api/upload',{
+                method: "POST",
+                headers:{
+                    "Authorization": `Bearer ${token}`
+                },
+                body: formData
+                
+            });
+            const dataResponse = await imageUrlResponse.json();
+            setListImages(dataResponse.body);
+
+            const updatedProduct = {
+                ...product, listImage: listImages.map(url => ({imageURL: url}))
+            }
+
+            console.log(updatedProduct)
+            
+            const productResponse = await fetch('http://localhost:8080/api/addProduct',{
                 method: "POST",
                 headers:{
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
                 },
-                body: JSON.stringify(product)
+                body: JSON.stringify(updatedProduct)
             })
-            if(response.ok){
+            if(productResponse.ok){
                 alert('thanh cong')
                 setProduct({
                     productId: 0,
@@ -54,38 +77,49 @@ const AddProduct: React.FC = () =>{
                     discount: 0,
                     listImage:[
                         {
-                            imageUrl: '',
-                            name: ''
+                            imageURL: []
                         }
                     ],
                     listCategory:[{
-                        categoryID:0
+                        categoryID: 0
                     }]
                 })
             }
         } catch (error) {
-            
+            throw new Error("Failed to fetch: " + error)
         }
     }
-
     useEffect(() =>{
         try {
             getAllCategories().then(
                 categories =>{
                     setListCategories(categories);
                 }
-            ).catch(error =>{
-                console.log(error.message)
-            })
+            )
         } catch (error) {
             console.log(error)
         }
-    })
+    },[])
 
-    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) =>{
+    const handleSelectedCategory = (selectedId: number) =>{
+        if(selectedId > 0){
+           setSelectedCategory(selectedId)
+           setProduct((prevProduct) =>({
+                ...prevProduct, listCategory: [
+                    ...prevProduct.listCategory,
+                    {categoryID: selectedCategory}
+                ]
+           }))
+        } else{
+            console.error("Category ID not found");
+        }
+    }
+
+
+    const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) =>{
         const files = event.target.files;
         if(files){
-            setSelectedImages(Array.from(files))
+            setSelectedImages(files);
         }
     }
     return (
@@ -103,19 +137,20 @@ const AddProduct: React.FC = () =>{
 
                 <input type="number" name="discount" placeholder="Giảm giá" className="w-full py-3 rounded-md shadow-2xl mb-6 pl-5" value={product.discount} onChange={(e) => setProduct({...product, discount: parseInt(e.target.value)})} />
                  <input type="number" name="quantity" placeholder="Số lượng" className="w-full py-3 rounded-md shadow-2xl mb-6 pl-5" value={product.quantity} onChange={(e) => setProduct({...product, quantity: parseInt(e.target.value)})} />
-                 {
-                    listCategories && listCategories.length > 0 && (
-                        <Select options={
-                            listCategories.map((category) =>({
-                                value: category.categoryId,
-                                label: category.categoryName
-                            }))
-                        } className="w-1/2" placeholder="Loại sản phẩm"  />
-
-                    )
-                 }
+                <Dropdown label="Loại sản phẩm" dismissOnClick={true}>
+                    {
+                        listCategories.map((category) =>(
+                            <Dropdown.Item key={category.categoryId} onClick={() => handleSelectedCategory(category.categoryId)}>
+                                {category.categoryName}
+                            </Dropdown.Item>
+                        ))
+                    }
+                </Dropdown>
                 
-                 <input type="file" multiple accept="image/*" onChange={handleFileChange}/>
+                <form onSubmit={handleSubmit} encType="multipart/form-data">
+                    <input type="file" multiple accept="image/*" onChange={handleFileChange} />
+                </form>
+                
 
                 
                 <div className="flex space-x-4 mb-6">

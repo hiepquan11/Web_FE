@@ -111,7 +111,7 @@ function ProductDetail(){
             {listImage.length > 0 ? (
                 <>
                     <img 
-                        src={listImage[0].ImageData} 
+                        src={listImage[0].ImageUrl} 
                         alt="Main product" 
                         className='max-w-[300px] max-h-[300px] w-full h-full aspect-square object-cover rounded-xl'
                     />
@@ -119,7 +119,7 @@ function ProductDetail(){
                         {listImage.slice(1, 5).map((imageSrc, index) => (
                             <img 
                                 key={index} 
-                                src={imageSrc.ImageData} 
+                                src={imageSrc.ImageUrl} 
                                 alt={`Thumbnail ${index + 1}`} 
                                 className='w-24 h-24 rounded-md cursor-pointer'
                             />

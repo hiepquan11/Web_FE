@@ -11,7 +11,8 @@ async function getImage(url:string):Promise<ImageModel[]> {
             ImageID: responseData[key].imageID,
             ImageName: responseData[key].imageName,
             Path: responseData[key].path,
-            ImageData: responseData[key].imageData
+            ImageData: responseData[key].imageData,
+            ImageUrl: responseData[key].imageURL
     });
     }
     return result;

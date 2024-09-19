@@ -41,8 +41,8 @@ const ProductProps: React.FC<ProductPropsInterface> = (props) => {
     }
 
     let imageData: string = "";
-    if (listImage[0] && listImage[0].ImageData) {
-        imageData = listImage[0].ImageData;
+    if (listImage[0] && listImage[0].ImageUrl) {
+        imageData = listImage[0].ImageUrl;
     }
     return (
         <div className="col-md-3 mt-2">
