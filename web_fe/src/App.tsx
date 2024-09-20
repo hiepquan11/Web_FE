@@ -13,6 +13,7 @@ import Dashboard from "./layout/admin/Dashboard";
 import ProductPage from "./layout/admin/Components/main/ProductManagement";
 import UserPage from "./layout/admin/Components/main/UserPage";
 import AddProduct from "./layout/admin/Components/main/Components/AddProduct";
+import UpdateProductPage from "./layout/admin/Components/main/Components/UpdateProduct";
 
 
 const MyRoute = () =>{
@@ -43,6 +44,7 @@ const MyRoute = () =>{
             <Route path="/admin/productPage" element={<ProductPage />} />
             <Route path="/admin/userPage" element={<UserPage/>}/>
             <Route path="/admin/addProduct" element={<AddProduct/>}/>
+            <Route path="/admin/updateProduct" element={<UpdateProductPage/>}></Route>
           </Routes>
         </>
       )}

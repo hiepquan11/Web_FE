@@ -15,7 +15,7 @@ const RequireAdmin = <P extends object>(WrappedComponent: React.ComponentType<P>
             const token = localStorage.getItem('token');
 
             if(!token){
-                navigate("/singin");
+                navigate("/signin");
                 return;
             }
 

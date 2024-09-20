@@ -103,7 +103,10 @@ const ProductPage = () =>{
                                 {product.Price.toLocaleString('vi-VN')}đ
                             </td>
                             <td className="px-6 py-4 flex gap-2">
-                                <Button className="w-1/3 bg-yellow-300 font-medium items-center">Chỉnh sửa</Button>
+                                <Link to="/admin/updateProduct" className="w-1/3 font-medium items-center">
+                                    <Button >Cập nhật</Button>
+                                </Link>
+                               
                                 <Button className="w-1/3 bg-red-700 font-medium items-center">Xóa</Button>
                             </td>
                         </tr>
