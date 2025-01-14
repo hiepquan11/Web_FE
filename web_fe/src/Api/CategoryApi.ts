@@ -39,12 +39,12 @@ export async function getAllCategories():Promise<CategoryModel[]> {
 }
 
 export async function getCategoryByProductID(productID:number):Promise<CategoryModel | null> {
-    const url: string = `http://localhost:8080/product/${productID}/ListCategory`;
+    const url: string = `http://localhost:8080/product/${productID}/listCategory`;
     return getOneCategory(url);
 }
 
 export async function getCategoryOfOneProduct(productID:number):Promise<CategoryModel[]> {
-    const url = `http://localhost:8080/product/${productID}/ListImage?sort=imageID,asc&page=0&size=1`;
+    const url = `http://localhost:8080/product/${productID}/listImage?sort=imageID,asc&page=0&size=1`;
     return getCategory(url);
 }
 

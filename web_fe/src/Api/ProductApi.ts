@@ -50,7 +50,7 @@ export async function getProductById(productID: number):Promise<ProductModel|nul
         const productData = await response.json();
         if(productData){
             return {
-                ProductID: productData.productID,
+            ProductID: productData.productID,
             ProductName: productData.name,
             Description: productData.description,
             Discount: productData.discount,

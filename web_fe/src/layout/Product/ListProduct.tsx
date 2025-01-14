@@ -55,7 +55,7 @@ function ListProduct({searchTerm}: ListProductProps) {
         return(
         <div><h1>Error: ${error}</h1></div>)
     }
-    if(listProduct.length === 0){
+    if(!listProduct || listProduct.length === 0){
         return(
             <div className="container">
                 <div className="d-flex align-items-center justify-content-center fs-3">

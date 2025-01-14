@@ -9,6 +9,7 @@ class ProductModel {
     Updated_at: Date;
     Category: string;
     
+    
     constructor(ProductID: number,
         ProductName: string,
         Description: string,

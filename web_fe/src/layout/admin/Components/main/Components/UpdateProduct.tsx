@@ -4,10 +4,13 @@ import React, { FormEvent, useEffect, useState } from "react"
 import CategoryModel from "../../../../../Models/CategoryModel";
 import { getAllCategories, getCategoryById } from "../../../../../Api/CategoryApi";
 import LoadingData from "../../../../Utils/LoadingData";
+import { useParams } from "react-router-dom";
+import { getProductById } from "../../../../../Api/ProductApi";
 
 
 const UpdateProduct: React.FC = () =>{
-
+    const {productID} = useParams()
+    const productIDConvert = Number(productID)
     const [product, setProduct] = useState({
         productId: 0,
         name:'',
@@ -34,6 +37,13 @@ const UpdateProduct: React.FC = () =>{
     const [selectedCategory, setSelectedCategory] = useState<number | 1>(1);
     const [loading, setLoading] = useState(true);
     const [notify, setNotify] = useState(true);
+
+    useEffect(() =>{
+        const fetchData = async () =>{
+            const response = await getProductById(productIDConvert)
+        }
+        fetchData();
+    },[productIDConvert])
 
     const handleSubmit = async (event: FormEvent) =>{
         event.preventDefault();
@@ -139,7 +149,7 @@ const UpdateProduct: React.FC = () =>{
     return (
         <div className="flex flex-col justify-center items-center min-h-screen pl-52">
              
-        <h1 className="text-lg font-semibold tracking-wide mb-2">Thêm sản phẩm</h1>
+        <h1 className="text-lg font-semibold tracking-wide mb-2">Cập nhật sản phẩm</h1>
     
     <form onSubmit={handleSubmit} className="text-center mx-20">
         <input type="text" name="productname" placeholder="Tên sản phẩm" className="w-full py-3 rounded-md shadow-2xl mb-6 pl-5" value={product.name} onChange={(e) => setProduct({...product, name: e.target.value})} />

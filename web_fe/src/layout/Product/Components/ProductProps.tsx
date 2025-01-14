@@ -28,7 +28,7 @@ const ProductProps: React.FC<ProductPropsInterface> = (props) => {
                 setError(error.message);
             }
         )
-    }, [])
+    }, [productID])
 
     if (loadData) {
         return (<LoadingData/>);

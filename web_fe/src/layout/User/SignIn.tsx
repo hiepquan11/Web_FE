@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Link, redirect } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 
 function SignIn(){
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleLogin = async (event: React.FormEvent) =>{
 
@@ -32,7 +33,7 @@ function SignIn(){
             const data = await response.json();
             const {jwt} = data;
             localStorage.setItem('token',jwt);
-            redirect('/')
+            navigate("/")
             
         } catch (error) {   
             setError("Lỗi trong quá trình đăng nhập");

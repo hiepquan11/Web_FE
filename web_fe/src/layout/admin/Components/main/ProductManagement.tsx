@@ -8,7 +8,9 @@ import { Button } from "flowbite-react";
 import { Link } from "react-router-dom";
 import RequireAdmin from "./Components/RequireAdmin";
 
-const ProductPage = () =>{
+
+
+const ProductPage: React.FC = () =>{
     const [listProduct, setListProduct] = useState<ProductModel[]>([]);
     const [category, setCategory] = useState<CategoryModel>();
     const [image, setImage] = useState<ImageModel>();
@@ -103,7 +105,7 @@ const ProductPage = () =>{
                                 {product.Price.toLocaleString('vi-VN')}đ
                             </td>
                             <td className="px-6 py-4 flex gap-2">
-                                <Link to="/admin/updateProduct" className="w-1/3 font-medium items-center">
+                                <Link to={`/admin/updateProduct/${product.ProductID}`} className="w-1/3 font-medium items-center">
                                     <Button >Cập nhật</Button>
                                 </Link>
                                

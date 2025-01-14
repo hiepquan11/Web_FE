@@ -41,10 +41,10 @@ const MyRoute = () =>{
         <>
           <Dashboard />
           <Routes>
-            <Route path="/admin/productPage" element={<ProductPage />} />
+            <Route path="/admin/productPage" element={<ProductPage/>} />
             <Route path="/admin/userPage" element={<UserPage/>}/>
             <Route path="/admin/addProduct" element={<AddProduct/>}/>
-            <Route path="/admin/updateProduct" element={<UpdateProductPage/>}></Route>
+            <Route path="/admin/updateProduct/:productID" element={<UpdateProductPage/>}></Route>
           </Routes>
         </>
       )}

@@ -9,8 +9,7 @@ async function getImage(url:string):Promise<ImageModel[]> {
     for(const key in responseData){
         result.push({
             ImageID: responseData[key].imageID,
-            ImageName: responseData[key].imageName,
-            Path: responseData[key].path,
+            ImageName: responseData[key].name,
             ImageData: responseData[key].imageData,
             ImageUrl: responseData[key].imageURL
     });

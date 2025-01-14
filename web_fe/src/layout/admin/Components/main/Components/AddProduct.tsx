@@ -4,6 +4,10 @@ import CategoryModel from "../../../../../Models/CategoryModel";
 import { getAllCategories, getCategoryById } from "../../../../../Api/CategoryApi";
 import { Dropdown, Select } from "flowbite-react";
 import LoadingData from "../../../../Utils/LoadingData";
+import ProductModel from "../../../../../Models/ProductModel";
+
+
+
 
 const AddProduct: React.FC = () =>{
     const [product, setProduct] = useState({
