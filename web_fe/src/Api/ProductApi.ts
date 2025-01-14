@@ -19,7 +19,6 @@ async function getProduct(url:string) {
             Quantity: responseData[key].quantity,
             Created_at: responseData[key].created_at,
             Updated_at: responseData[key].updated_at,
-            Category: responseData[key].listCategory[0].categoryName
         });   
     }
     return Result;
@@ -31,7 +30,7 @@ export async function GetAllProduct():Promise<ProductModel[]> {
     const url: string  = 'http://localhost:8080/product';
 
     // call request
-    return(getProduct(url));
+    return (getProduct(url));
 }
 
 export async function getNewProduct():Promise<ProductModel[]> {
@@ -58,7 +57,7 @@ export async function getProductById(productID: number):Promise<ProductModel|nul
             Quantity: productData.quantity,
             Created_at: productData.created_at,
             Updated_at: productData.updated_at,
-            Category: productData.listCategory[0].categoryName
+            // Category: productData.listCategory[0].categoryName
             } 
         } else {
             throw new Error("Product khong ton tai");

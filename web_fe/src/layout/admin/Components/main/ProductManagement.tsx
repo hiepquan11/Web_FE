@@ -95,11 +95,11 @@ const ProductPage: React.FC = () =>{
                             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                {product.ProductName}
                             </th>
-                            <td className="px-6 py-4">
+                            {/* <td className="px-6 py-4">
                                 {
                                   product.Category
                                 }
-                            </td>
+                            </td> */}
                             
                             <td className="px-6 py-4">
                                 {product.Price.toLocaleString('vi-VN')}đ

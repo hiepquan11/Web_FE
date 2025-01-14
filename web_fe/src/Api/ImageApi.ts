@@ -20,7 +20,7 @@ async function getImage(url:string):Promise<ImageModel[]> {
 export async function getAllImage(ProductID:number):Promise<ImageModel[]> {
    
     // endpoint
-    const url:string = `http://localhost:8080/product/${ProductID}/ListImage`;
+    const url:string = `http://localhost:8080/product/${ProductID}/listImage`;
 
     // call request
     
@@ -32,7 +32,7 @@ export async function getAllImage(ProductID:number):Promise<ImageModel[]> {
 }
 
 export async function getImageOfOneProduct(ProductID:number):Promise<ImageModel[]> {
-    const url = `http://localhost:8080/product/${ProductID}/ListImage?sort=imageID,asc&page=0&size=1`;
+    const url = `http://localhost:8080/product/${ProductID}/listImage?sort=imageID,asc&page=0&size=1`;
     return getImage(url);
 }
 
