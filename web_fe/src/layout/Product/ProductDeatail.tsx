@@ -77,7 +77,7 @@ function ProductDetail(){
             } else {
                 const responseData = await addToCart(productId, quantity, token);
                 if(responseData){
-                    alert(responseData.message);
+                    alert("Product added to cart");
                 }
             }
             

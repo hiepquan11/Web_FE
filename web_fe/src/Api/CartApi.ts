@@ -7,6 +7,7 @@ export async function addToCart(productId:number, quantity:number, token: string
                 quantity
             }),
             headers : {
+                "Content-Type": 'application/json',
                 "Authorization" : `Bearer ${token}`
             }
         });
