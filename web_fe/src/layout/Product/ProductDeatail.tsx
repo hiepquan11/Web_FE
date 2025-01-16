@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ProductModel from "../../Models/ProductModel";
 import { getProductById } from "../../Api/ProductApi";
@@ -7,6 +7,16 @@ import { getCategoryByProductID } from "../../Api/CategoryApi";
 import CategoryModel from "../../Models/CategoryModel";
 import ImageModel from "../../Models/ImageModel";
 import { getAllImage } from "../../Api/ImageApi";
+import { addToCart } from "../../Api/CartApi";
+
+interface CartItem{
+    id: number;
+    image: string,
+    productId: number,
+    quantity: number,
+    price: number,
+    totalPrice: number
+}
 
 function ProductDetail(){
 
@@ -41,6 +51,32 @@ function ProductDetail(){
             setQuantity(quantity - 1);
         }
     }
+
+    const handleAddToCart = async (productId: number, quantity: number, imageUrl: string, price: number, totalPrice: number) => {
+        try {
+            // Kiểm tra giỏ hàng trong localStorage
+            let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    
+            // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
+            const existingProductIndex = cart.findIndex((item: CartItem) => item.productId === productId);
+            
+            if (existingProductIndex !== -1) {
+                // Nếu sản phẩm đã có, tăng số lượng
+                cart[existingProductIndex].quantity += quantity;
+            } else {
+                // Nếu chưa có sản phẩm, thêm mới
+                cart.push({ productId, quantity, imageUrl, price, totalPrice });
+            }
+    
+            // Cập nhật lại giỏ hàng trong localStorage
+            localStorage.setItem("cart", JSON.stringify(cart));
+    
+            alert("Product added to cart!");
+        } catch (error: any) {
+            console.error("Error adding product to cart:", error.message);
+            alert("Error adding product to cart!");
+        }
+    };
 
     const handleChangeQuantity = (event: React.ChangeEvent<HTMLInputElement>) =>{
         const newQuantity = parseInt(event.target.value);
@@ -146,7 +182,15 @@ function ProductDetail(){
                     <span className='py-4 px-6 rounded-lg text-3xl text-center'>{quantity}</span>
                     <button className='bg-gray-200 py-2 px-4 rounded-lg text-violet-800 text-3xl' onClick={increaseQuantity}>+</button>
                 </div>
-                <button className='bg-yellow-300 text-black font-semibold py-3 px-16 rounded-xl h-full'>Add to Cart</button>
+                <button className='bg-yellow-300 text-black font-semibold py-3 px-16 rounded-xl h-full'
+                    onClick={() => {
+                        if(product?.ProductID && product.ImageUrls.length > 0 && product.ImageUrls[0]){
+                            handleAddToCart(product.ProductID, quantity, product.ImageUrls[0], product.Price, product.Price * quantity)
+                        } else {
+                            console.log("ProductId is missing or invalid: ", product?.ProductID)
+                        }
+                    }}
+                >Add to Cart</button>
             </div>
         </div>
     </div>

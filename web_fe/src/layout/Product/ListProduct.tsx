@@ -15,7 +15,7 @@ function ListProduct({searchTerm}: ListProductProps) {
     const [listProduct, setListProduct] = useState<ProductModel[]>([]);
     const [loadData, setData] = useState(true);
     const [error, setError] = useState(null);
-
+    
     useEffect(() => {
         if(searchTerm === ''){
             GetAllProduct().then(

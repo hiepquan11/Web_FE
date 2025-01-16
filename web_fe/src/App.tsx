@@ -14,6 +14,7 @@ import ProductPage from "./layout/admin/Components/main/ProductManagement";
 import UserPage from "./layout/admin/Components/main/UserPage";
 import AddProduct from "./layout/admin/Components/main/Components/AddProduct";
 import UpdateProductPage from "./layout/admin/Components/main/Components/UpdateProduct";
+import Cart from "./layout/Home/Components/Cart";
 
 
 const MyRoute = () =>{
@@ -33,6 +34,7 @@ const MyRoute = () =>{
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/activate/:email/:activationCode" element={<ActivationPage />} />
+            <Route path="/cart" element={<Cart/>}/>
           </Routes>
           <Footer />
         </>

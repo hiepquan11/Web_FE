@@ -5,8 +5,9 @@ class ProductModel {
     Discount?: number;
     Price: number;
     Quantity: number;
-    Created_at: Date;
-    Updated_at: Date;
+    ImageUrls: Array<string>;
+    CategoryNames: Array<string>
+    
    
     
     
@@ -16,18 +17,18 @@ class ProductModel {
         Discount: number,
         Price: number,
         Quantity: number,
-        Created_at: Date,
-        Updated_at: Date,
+        ImageUrls: Array<string>,
+        CategoryNames: Array<string>
        ){
 
             this.ProductID = ProductID;
-            this.Created_at = Created_at;
             this.Description = Description;
             this.Discount = Discount;
             this.Price = Price;
             this.ProductName = ProductName;
             this.Quantity = Quantity;
-            this.Updated_at = Updated_at;
+            this.ImageUrls = ImageUrls;
+            this.CategoryNames = CategoryNames;
     }
 }
 export default ProductModel;
