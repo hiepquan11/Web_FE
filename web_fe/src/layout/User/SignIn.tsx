@@ -33,6 +33,7 @@ function SignIn(){
             const data = await response.json();
             const {jwt} = data;
             localStorage.setItem('token',jwt);
+            localStorage.removeItem('cart');
             navigate("/")
             
         } catch (error) {   

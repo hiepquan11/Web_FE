@@ -1,12 +1,13 @@
 // src/components/CartPage.tsx
 import React, { useEffect, useState } from "react";
+import { getCart } from "../../../Api/CartApi";
 
 interface CartItem {
   id: number;
-  name: string;
+  productName: string;
   price: number;
-  quantity: number;
-  imageUrl: string;
+  productQuantity: number;
+  productImageUrls: string;
   totalPrice: number;
 }
 
@@ -15,27 +16,39 @@ const Cart: React.FC = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loadingData, setLoadingData] = useState<boolean>(true);
 
-
   useEffect(() => {
-    const storedCart = localStorage.getItem('cart');
-    if (storedCart) {
+    const fetchData = async () => {
       try {
-        const parsedCart: CartItem[] = JSON.parse(storedCart);
-        setCartItems(parsedCart);
-      } catch (error) {
-        console.error("Failed to parse cart data:", error);
-      }
-    }
-    setLoadingData(false); // Data loading complete
-  }, []); // Empty dependency array ensures this runs once on mount
+        const storedCart = localStorage.getItem('cart');
 
+        if (storedCart) {
+          const parsedCart: CartItem[] = JSON.parse(storedCart);
+          setCartItems(parsedCart);
+        } else {
+          const token = localStorage.getItem('token');
+          if (token) {
+            const responseData = await getCart(token); 
+            if (responseData) {
+              setCartItems(responseData);
+            }
+          }
+        }
+      } catch (error: any) {
+        console.error("Error loading cart data:", error.message);
+      } finally {
+        setLoadingData(false);
+      }
+    };
+
+    fetchData();
+  }, []);
   if (loadingData) {
     return <p>Loading...</p>; // Show a loading state
   }
 
   // Hàm tính tổng giá
   const calculateTotal = (): number => {
-    return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+    return cartItems.reduce((total, item) => total + item.price * item.productQuantity, 0);
   };
 
   // Hàm xóa sản phẩm
@@ -65,15 +78,15 @@ const Cart: React.FC = () => {
                 <tr key={item.id} className="border-b">
                   <td className="flex items-center py-4">
                     <img
-                      src={item.imageUrl}
-                      alt={item.name}
+                      src={item.productImageUrls}
+                      alt={item.productName}
                       className="w-16 h-16 object-cover rounded mr-4"
                     />
-                    <span>{item.name}</span>
+                    <span>{item.productName}</span>
                   </td>
                   <td>{item.price.toLocaleString()} VND</td>
-                  <td>{item.quantity}</td>
-                  <td>{(item.price * item.quantity).toLocaleString()} VND</td>
+                  <td>{item.productQuantity}</td>
+                  <td>{(item.price * item.productQuantity).toLocaleString()} VND</td>
                   <td>
                     <button
                       onClick={() => removeItem(item.id)}

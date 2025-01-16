@@ -11,9 +11,9 @@ import { addToCart } from "../../Api/CartApi";
 
 interface CartItem{
     id: number;
-    image: string,
+    productImageUrls: string,
     productId: number,
-    quantity: number,
+    productQuantity: number,
     price: number,
     totalPrice: number
 }
@@ -54,7 +54,9 @@ function ProductDetail(){
 
     const handleAddToCart = async (productId: number, quantity: number, imageUrl: string, price: number, totalPrice: number) => {
         try {
-            // Kiểm tra giỏ hàng trong localStorage
+            const token : string | null = localStorage.getItem('token');
+            if(token === null){
+                // Kiểm tra giỏ hàng trong localStorage
             let cart = JSON.parse(localStorage.getItem("cart") || "[]");
     
             // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
@@ -72,6 +74,13 @@ function ProductDetail(){
             localStorage.setItem("cart", JSON.stringify(cart));
     
             alert("Product added to cart!");
+            } else {
+                const responseData = await addToCart(productId, quantity, token);
+                if(responseData){
+                    alert(responseData.message);
+                }
+            }
+            
         } catch (error: any) {
             console.error("Error adding product to cart:", error.message);
             alert("Error adding product to cart!");
