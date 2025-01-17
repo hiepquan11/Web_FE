@@ -1,3 +1,6 @@
+import { error } from "console";
+import RemoveItemInterface from "../Models/RemoveItemInterface";
+
 export async function addToCart(productId:number, quantity:number, token: string) {
     try {
         const response = await fetch('http://localhost:8080/api/cart/add',{
@@ -38,5 +41,25 @@ export async function getCart(token: string) {
     } catch (error : any) {
         console.log('Error: ', error.message);
         throw new Error(error.message);
+    }
+}
+
+export async function removeItemFromCart(productId: number): Promise<any> {
+    try {
+        const token : string | null = localStorage.getItem('token');
+        const response = await fetch('http://localhost:8080/api/cart/delete',{
+            method: "DELETE",
+            body: JSON.stringify({productId}),
+            headers: {
+                "Content-Type": 'application/json',
+                "Authorization": `Bearer ${token}`
+            }
+        });
+        if(!response.ok){
+            throw new Error("Failed to delete item from cart")
+        }
+        return await response.json();
+    } catch (error:any) {
+        console.log(error.message);
     }
 }

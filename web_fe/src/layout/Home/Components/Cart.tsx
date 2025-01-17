@@ -1,20 +1,24 @@
 // src/components/CartPage.tsx
 import React, { useEffect, useState } from "react";
-import { getCart } from "../../../Api/CartApi";
+import { getCart, removeItemFromCart } from "../../../Api/CartApi";
+import RemoveItemInterface from "../../../Models/RemoveItemInterface";
 
 interface CartItem {
   id: number;
   productName: string;
   price: number;
   productQuantity: number;
-  productImageUrls: string;
+  productImageUrls: string[];
   totalPrice: number;
+  productId: number
 }
 
 const Cart: React.FC = () => {
   // Dữ liệu mẫu cho giỏ hàng
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loadingData, setLoadingData] = useState<boolean>(true);
+  const [isDeleting, setIsDeleting] = useState<number | null>(null);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,6 +34,7 @@ const Cart: React.FC = () => {
             const responseData = await getCart(token); 
             if (responseData) {
               setCartItems(responseData);
+              
             }
           }
         }
@@ -52,9 +57,26 @@ const Cart: React.FC = () => {
   };
 
   // Hàm xóa sản phẩm
-  const removeItem = (id: number): void => {
-    setCartItems(cartItems.filter((item) => item.id !== id));
-  };
+
+const removeItem = async (id: number) => {
+  setIsDeleting(id); // Đánh dấu sản phẩm đang được xóa
+
+  try {
+    const response = await removeItemFromCart(id);
+    if (response) {
+      setCartItems(cartItems.filter((item) => item.productId !== id));
+      alert("Delete successfully")
+    } else {
+      alert('Failed to delete item.');
+    }
+  } catch (error) {
+    console.error(error);
+    alert('Error occurred while deleting the item.');
+  } finally {
+    setIsDeleting(null); // Xóa trạng thái sau khi hoàn tất
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -78,7 +100,7 @@ const Cart: React.FC = () => {
                 <tr key={item.id} className="border-b">
                   <td className="flex items-center py-4">
                     <img
-                      src={item.productImageUrls}
+                      src={item.productImageUrls[0]}
                       alt={item.productName}
                       className="w-16 h-16 object-cover rounded mr-4"
                     />
@@ -87,9 +109,11 @@ const Cart: React.FC = () => {
                   <td>{item.price.toLocaleString()} VND</td>
                   <td>{item.productQuantity}</td>
                   <td>{(item.price * item.productQuantity).toLocaleString()} VND</td>
+                  <td>{item.productId}</td>
+
                   <td>
                     <button
-                      onClick={() => removeItem(item.id)}
+                      onClick={() => removeItem(item.productId)}
                       className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
                     >
                       Xóa

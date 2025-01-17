@@ -139,7 +139,6 @@ function ProductDetail(){
             <LoadingData/>
         );
     }
-    console.log(category)
 
     if(error){
         return(
