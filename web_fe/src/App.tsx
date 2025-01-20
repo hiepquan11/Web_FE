@@ -15,12 +15,14 @@ import UserPage from "./layout/admin/Components/main/UserPage";
 import AddProduct from "./layout/admin/Components/main/Components/AddProduct";
 import UpdateProductPage from "./layout/admin/Components/main/Components/UpdateProduct";
 import Cart from "./layout/Home/Components/Cart";
+import useCheckExpirationTime from "./layout/Home/Components/useCheckExirationTime";
 
 
 const MyRoute = () =>{
   const [searchTerm, setSearchTerm] = useState('');
   const location = useLocation();
   const isAdmin = location.pathname.startsWith('/admin');
+  useCheckExpirationTime();
   return(
     <>
       

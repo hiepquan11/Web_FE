@@ -8,7 +8,7 @@ interface CartItem {
   productName: string;
   price: number;
   productQuantity: number;
-  productImageUrls: string[];
+  imageUrl: string[];
   totalPrice: number;
   productId: number
 }
@@ -22,14 +22,16 @@ const Cart: React.FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      const token = localStorage.getItem('token');
       try {
         const storedCart = localStorage.getItem('cart');
 
-        if (storedCart) {
+        if (!token) {
+          if(storedCart){
           const parsedCart: CartItem[] = JSON.parse(storedCart);
           setCartItems(parsedCart);
+          }
         } else {
-          const token = localStorage.getItem('token');
           if (token) {
             const responseData = await getCart(token); 
             if (responseData) {
@@ -100,7 +102,7 @@ const removeItem = async (id: number) => {
                 <tr key={item.id} className="border-b">
                   <td className="flex items-center py-4">
                     <img
-                      src={item.productImageUrls[0]}
+                      src={item.imageUrl[0]}
                       alt={item.productName}
                       className="w-16 h-16 object-cover rounded mr-4"
                     />
